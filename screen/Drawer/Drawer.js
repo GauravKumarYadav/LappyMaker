@@ -35,6 +35,13 @@ const items = [
         color: "black",
         key: 3,
     },
+    {
+        icon: "person-outline",
+        label: "Profile",
+        screen: "Profile",
+        color: "black",
+        key: 4,
+    },
 ];
 
 const DrawerContent = (props) => {
