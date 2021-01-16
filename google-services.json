@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "788753377947",
+    "firebase_url": "https://lappymakerapp-default-rtdb.firebaseio.com",
+    "project_id": "lappymakerapp",
+    "storage_bucket": "lappymakerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788753377947:android:728091a03e012217bcb43e",
+        "android_client_info": {
+          "package_name": "com.lappymaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788753377947-87ktrqe99ldpu7pftfjc1alhuih1kap8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lappymaker",
+            "certificate_hash": "2d6b116a3ce7638d0e2b97441b771bd51182d306"
+          }
+        },
+        {
+          "client_id": "788753377947-6dou6pvk5sddhj74sgo3909ie8fnfgja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1A8BpBeGVzuIrzuNZmO5pr7OEKglC21g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788753377947-6dou6pvk5sddhj74sgo3909ie8fnfgja.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788753377947-ksh8tcjlkulua5i6r109gcksinju74db.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
