@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
                 fbLogin: async () => {
                     try{
                         await Facebook.initializeAsync({appId:'748687212695222'});
-                        const { type,token, } = await Facebook.logInWithReadPermissionsAsync({permissions:['public_profile']});
+                        const { type,token, } = await Facebook.logInWithReadPermissionsAsync({permissions:['public_profile','email',]});
                         if(type ==="success"){
                             const credential = firebase.auth.FacebookAuthProvider.credential(token);
                             await firebase.auth().signInWithCredential(credential).then(res=>setUser(res));

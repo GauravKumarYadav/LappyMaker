@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native';
 import DrawerItem from '../Drawer/DrawerItem';
 import { Avatar } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../../navigator/AuthProvider'
 
 const { width } = Dimensions.get('window');
 const aspectRatio = 2579 / 3435;
@@ -35,16 +36,10 @@ const items = [
         color: "black",
         key: 3,
     },
-    {
-        icon: "person-outline",
-        label: "Profile",
-        screen: "Profile",
-        color: "black",
-        key: 4,
-    },
 ];
 
 const DrawerContent = (props) => {
+    const { user } = useContext(AuthContext);
     return (
         <View style={styles.container}>
             <View style={styles.headerWrapper}>
@@ -60,10 +55,10 @@ const DrawerContent = (props) => {
                         size="xlarge"
                         source={{
                             uri:
-                                'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+                                user.photoURL,
                         }}
                         rounded
-                        onPress={() => console.log("Works!")}
+                        // onPress={() => console.log("Works!")}
                         imageProps={{ resizeMode: 'cover' }}
                         activeOpacity={0.7}
                         avatarStyle={styles.avatarStyle}
@@ -71,10 +66,10 @@ const DrawerContent = (props) => {
                     />
                     <View style={styles.profileTextWrapper} >
                         <Text style={styles.profileHeadingText} >
-                            Gaurav Kumar Yadav
+                            {user.displayName}
                         </Text>
                         <Text style={styles.profileBodyText} >
-                            Gauravy60@gmail.com
+                            {user.email}
                         </Text>
                     </View>
                     {
@@ -105,7 +100,7 @@ const styles = StyleSheet.create({
     container: { flex: 1 },
     headerWrapper: { flex: 0.2, backgroundColor: "white", },
     header: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderBottomRightRadius: wp(25), backgroundColor: '#0c0d34', },
-    closeIcon: { position: 'absolute', top: wp('8%'), left: wp('3%'), right: 0, bottom: 0, },
+    closeIcon: { position: 'absolute', top: wp('3%'), left: wp('3%'), right: 0, bottom: 0, },
     contentContainer: { flex: 0.8 },
     topLeftCurve: { flex: 1, backgroundColor: '#0c0d34', },
     bgImage: { top: 0, left: 0, right: 0, bottom: 0, borderTopLeftRadius: wp(25), width: wp(70), },
