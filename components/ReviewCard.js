@@ -55,10 +55,10 @@ const ReviewCard = ({ item, onDelete }) => {
                     {
                         user.uid == item.userId ?
                             <TouchableOpacity style={styles.interaction} onPress={() => onDelete(item.id)} >
-                                <Ionicons name="md-trash-bin" size={25} />
+                                <Ionicons name="md-trash-bin" size={wp('7%')} />
                                 <Text style={styles.interactionText}>
                                     Delete
-                        </Text>
+                                </Text>
                             </TouchableOpacity>
                             : null
                     }
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
     userName: { fontSize: hp('1.5%'), fontWeight: 'bold', color: 'black', },
     userInfoText: { flexDirection: 'column', justifyContent: 'center', marginLeft: wp(2) },
     postTime: { fontSize: hp('1.2%'), color: '#666' },
-    postText: { fontSize: hp('1.5%'), },
+    postText: { fontSize: hp('1.5%'), paddingTop:wp('1.5') },
     postImage: { width: wp('95%'), height: wp('55%'), resizeMode: 'contain', borderRadius: wp('2%'), },
-    interactionWrapper: { flexDirection: 'row', justifyContent: 'space-around', },
+    interactionWrapper: { flexDirection: 'row', justifyContent: 'space-evenly', },
     interaction: { justifyContent: 'center', flexDirection: 'row', borderRadius: wp('3%'), alignSelf: 'center' },
-    interactionText: { fontSize: hp('1.2%'), fontWeight: 'bold', color: '#333', alignSelf: 'center' },
+    interactionText: { fontSize: hp('1.5%'), fontWeight: 'bold', color: '#333', alignSelf: 'center',paddingLeft:wp('1%') },
 });
