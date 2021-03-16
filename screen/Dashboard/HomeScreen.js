@@ -2,9 +2,16 @@ import React,{useContext} from 'react';
 import { StyleSheet, View,Text } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import {AuthContext} from '../../navigator/AuthProvider'
+import emailJs from 'emailjs-com'
+
 const HomeScreen =()=>{
     const {user} = useContext(AuthContext);
     // console.log('userObj : ', user);
+    
+    const sendEmail =()=>{
+
+    }
+
     return(
         <View style={styles.container} >
             <Text>

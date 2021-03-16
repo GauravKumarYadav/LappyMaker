@@ -5,54 +5,55 @@ import ReviewCard, { SkeletonReviewCard } from '../../components/ReviewCard';
 import * as firebase from 'firebase';
 import 'firebase/firebase-firestore';
 import { ScrollView } from 'react-native-gesture-handler';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 
-const Posts = [
-    {
-        id: 1,
-        userName: 'Gaurav Kumar Yadav',
-        userImage: {
-            uri:
-                'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        },
-        postTime: '5 hrs ago',
-        postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        postImage: {
-            uri:
-                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-        },
-        rating: 3,
-    },
-    {
-        id: 2,
-        userName: 'Gaurav Kumar Yadav',
-        userImage: {
-            uri:
-                'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        },
-        postTime: '5 hrs ago',
-        postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        postImage: 'none',
-        rating: 3,
-    },
-    {
-        id: 3,
-        userName: 'Gaurav Kumar Yadav',
-        userImage: {
-            uri:
-                'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        },
-        postTime: '5 hrs ago',
-        postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        postImage: {
-            uri:
-                'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
-        },
-        rating: 3,
-    },
-];
+// const Posts = [
+//     {
+//         id: 1,
+//         userName: 'Gaurav Kumar Yadav',
+//         userImage: {
+//             uri:
+//                 'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         },
+//         postTime: '5 hrs ago',
+//         postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         postImage: {
+//             uri:
+//                 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+//         },
+//         rating: 3,
+//     },
+//     {
+//         id: 2,
+//         userName: 'Gaurav Kumar Yadav',
+//         userImage: {
+//             uri:
+//                 'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         },
+//         postTime: '5 hrs ago',
+//         postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         postImage: 'none',
+//         rating: 3,
+//     },
+//     {
+//         id: 3,
+//         userName: 'Gaurav Kumar Yadav',
+//         userImage: {
+//             uri:
+//                 'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         },
+//         postTime: '5 hrs ago',
+//         postText: ' https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual - reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         postImage: {
+//             uri:
+//                 'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg',
+//         },
+//         rating: 3,
+//     },
+// ];
 
-const ReviewScreen = () => {
+const ReviewScreen = ({navigation}) => {
     const [posts, setPosts] = useState(null);
     const [loading, setLoading] = useState(true);
     const [deleted, setDeleted] = useState(false);
@@ -75,7 +76,7 @@ const ReviewScreen = () => {
                         const { userId, post, postImg, postTime, rating,userImage,userName } = doc.data();
                         list.push({
                             id: doc.id,
-                            userId,
+                            userId:userId,
                             userName: userName,
                             userImg: userImage,
                             postTime: postTime,
@@ -188,9 +189,12 @@ const ReviewScreen = () => {
                     (<View style={styles.container} >
                         <FlatList
                             data={posts}
-                            renderItem={({ item }) => <ReviewCard item={item} onDelete={handleDelete} />}
-                            keyExtractor={item => item.id.toString()}
-                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item }) => (
+                                <ReviewCard item={item} onDelete={handleDelete} onPress={()=>{
+                                    console.log('user ID =>',item.userId);
+                                    navigation.navigate('HomeProfile', {screen:'ProfileScreen',userId:item.userId})}} />
+                            )}
+                            keyExtractor={(item) => item.id}
                             ListHeaderComponent={ListHeader}
                             ListFooterComponent={ListHeader}
                             showsVerticalScrollIndicator={false}

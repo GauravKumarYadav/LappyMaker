@@ -62,7 +62,7 @@ const AddReviewScreen = () => {
             );
             setPost(null);
         }).catch((error) => {
-            console.log('Something went wrong with added post to firestore.', error);
+            console.log('Something went wrong please try again', error);
         });
     };
 

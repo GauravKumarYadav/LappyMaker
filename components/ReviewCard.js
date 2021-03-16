@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { AirbnbRating } from 'react-native-elements';
@@ -7,26 +7,55 @@ import moment from 'moment';
 import { AuthContext } from '../navigator/AuthProvider';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { ScrollView } from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/firebase-firestore';
 
-const ReviewCard = ({ item, onDelete }) => {
+const ReviewCard = ({ item, onDelete, onPress, route }) => {
     const [noOfLines, setNoOfLines] = useState(true);
     const { user, logout } = useContext(AuthContext);
+    const [userData, setUserData] = useState(null);
+
+    const getUser = async () => {
+        await firebase.firestore()
+            .collection('users')
+            .doc(item.userId)
+            .get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    console.log('User Data', documentSnapshot.data());
+                    setUserData(documentSnapshot.data());
+                }
+            })
+    }
+    useEffect(() => {
+        getUser();
+    }, []);
 
     return (
         <View style={styles.container} key={item.id} >
             <View style={styles.reviewCard} >
                 <View style={{ padding: wp('3%'), paddingBottom: 0 }} >
-                    <View style={styles.userInfo} >
-                        <Image style={styles.userImage} source={{ uri: item.userImg }} />
-                        <View style={styles.userInfoText} >
-                            <Text style={styles.userName} >
-                                {item.userName}
-                            </Text>
-                            <Text style={styles.postTime} >
-                                {moment(item.postTime.toDate()).fromNow()}
-                            </Text>
+                    <TouchableOpacity onPress={onPress} >
+                        <View style={styles.userInfo} >
+                            <Image style={styles.userImage}
+                                source={{
+                                    uri: userData
+                                      ? userData.userImg ||
+                                        'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
+                                      : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+                                }}
+                            />
+                            <View style={styles.userInfoText} >
+                                <Text style={styles.userName} >
+                                    {userData ? userData.fname || 'Test' : 'Test'}{' '}
+                                    {userData ? userData.lname || 'User' : 'User'}
+                                </Text>
+                                <Text style={styles.postTime} >
+                                    {moment(item.postTime.toDate()).fromNow()}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => setNoOfLines(!noOfLines)} >
                         <Text style={styles.postText} numberOfLines={noOfLines ? 2 : null} >
                             {item.post}
@@ -71,8 +100,8 @@ const ReviewCard = ({ item, onDelete }) => {
 export const SkeletonReviewCard = () => {
     return (
         <SkeletonPlaceholder>
-            <View style={{ flexDirection: "row", alignItems: "center" ,paddingTop:hp('1%')}}>
-                <View style={{ width: wp(15), height: wp(15), borderRadius: wp(25/2)  }} />
+            <View style={{ flexDirection: "row", alignItems: "center", paddingTop: hp('1%') }}>
+                <View style={{ width: wp(15), height: wp(15), borderRadius: wp(25 / 2) }} />
                 <View style={{ marginLeft: 20 }}>
                     <View style={{ width: 120, height: 20, borderRadius: 4 }} />
                     <View
@@ -99,9 +128,9 @@ const styles = StyleSheet.create({
     userName: { fontSize: hp('1.5%'), fontWeight: 'bold', color: 'black', },
     userInfoText: { flexDirection: 'column', justifyContent: 'center', marginLeft: wp(2) },
     postTime: { fontSize: hp('1.2%'), color: '#666' },
-    postText: { fontSize: hp('1.5%'), paddingTop:wp('1.5') },
+    postText: { fontSize: hp('1.5%'), paddingTop: wp('1.5') },
     postImage: { width: wp('95%'), height: wp('55%'), resizeMode: 'contain', borderRadius: wp('2%'), },
     interactionWrapper: { flexDirection: 'row', justifyContent: 'space-evenly', },
     interaction: { justifyContent: 'center', flexDirection: 'row', borderRadius: wp('3%'), alignSelf: 'center' },
-    interactionText: { fontSize: hp('1.5%'), fontWeight: 'bold', color: '#333', alignSelf: 'center',paddingLeft:wp('1%') },
+    interactionText: { fontSize: hp('1.5%'), fontWeight: 'bold', color: '#333', alignSelf: 'center', paddingLeft: wp('1%') },
 });

@@ -12,15 +12,63 @@ import ReviewScreen from '../screen/Review/ReviewScreen';
 import ProfileScreen from '../screen//Profile/ProfileScreen';
 import AddPostScreen from '../screen/Review/AddReview';
 import DrawerContent, { DRAWER_WIDTH } from '../screen/Drawer/Drawer';
+import MapScreen from '../screen/MapScreen/MapScreen';
+import EditProfileScreen from '../screen/Profile/EditProfileScreen';
 
 const ReviewTabStackNav = createStackNavigator();
-const BottomTabNav = createMaterialBottomTabNavigator();
+const MapStackNav = createStackNavigator();
 const HomeTabStackNav = createStackNavigator();
 const DrawerTabNav = createDrawerNavigator();
+const BottomTabNav = createMaterialBottomTabNavigator();
+const ProfileStackNav = createStackNavigator();
 
-// const DrawerStack = ({}) =>(
+const ProfileStack =({navigation})=>(
+    <ProfileStackNav.Navigator >
+        <ProfileStackNav.Screen
+            name="ProfileScreen"
+            component={ProfileScreen}
+            options={{
+                title: '',
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: '#fff',
+                    shadowColor: '#fff',
+                    elevation: 0,
+                },
+                headerBackTitleVisible: false,
+                headerBackImage: () => (
+                    <View style={{ marginLeft: 15 }}>
+                        <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+                    </View>
+                ),
+            }}
+        />
+        <ProfileStackNav.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+            options={{
+                headerTitle:"Edit Profile",
+                headerBackTitleVisible:false,
+                headerTitleAlign:'center',
+                headerStyle:{
+                    backgroundColor:'#fff',
+                    shadowColor:'#fff',
+                    elevation:0,
+                }
+            }}
+        />
+    </ProfileStackNav.Navigator>
+);
 
-// );
+const MapStack = ({}) =>(
+    <MapStackNav.Navigator>
+        <MapStackNav.Screen
+            name="MapScreen"
+            component={MapScreen}
+
+        />
+    </MapStackNav.Navigator>
+);
 
 const ReviewTabStack = ({ navigation }) => (
     <ReviewTabStackNav.Navigator>
@@ -70,6 +118,13 @@ const ReviewTabStack = ({ navigation }) => (
                 ),
             }}
         />
+        <ReviewTabStackNav.Screen
+            name="HomeProfile"
+            component={ProfileStack}
+            options={{
+                headerShown:false,
+            }}
+        />
     </ReviewTabStackNav.Navigator>
 );
 
@@ -82,7 +137,7 @@ const HomeTabStack = ({ navigation }) => (
     </HomeTabStackNav.Navigator>
 );
 
-const MainScreenTab = ({ navigation }) => (
+const BottomTab = ({ navigation }) => (
     <BottomTabNav.Navigator
         initialRouteName="Drawer"
         inactiveColor="#ff9933"
@@ -98,7 +153,7 @@ const MainScreenTab = ({ navigation }) => (
                     <MaterialCommunityIcons
                         name="home-outline"
                         color={color}
-                        size={24}
+                        size={26}
                     />
                 ),
             }}
@@ -118,8 +173,23 @@ const MainScreenTab = ({ navigation }) => (
             }}
         />
         <BottomTabNav.Screen
+            name="Tack"
+            component={MapStack}
+            options={{
+                // tabBarLabel: 'Home',
+                tabBarIcon: ({ color, size }) => (
+                    <Ionicons
+                        name="navigate-outline"
+                        color={color}
+                        size={24}
+                    />
+                ),
+            }}
+        />
+
+        <BottomTabNav.Screen
             name="Profile"
-            component={ProfileScreen}
+            component={ProfileStack}
             options={{
                 // tabBarLabel: 'Home',
                 tabBarIcon: ({ color, size }) => (
@@ -142,7 +212,7 @@ const AppStack = () => {
         >
             <DrawerTabNav.Screen
                 name="MainStack"
-                component={MainScreenTab}
+                component={BottomTab}
                 options={{
                     drawerLabel: 'Home'
                 }}
