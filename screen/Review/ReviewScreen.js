@@ -102,12 +102,10 @@ const ReviewScreen = ({navigation}) => {
 
     useEffect(() => {
         fetchPosts();
-    }, []);
-
-    useEffect(() => {
-        fetchPosts();
         setDeleted(false);
-    }, [deleted]);
+        navigation.addListener("focus", () => setLoading(!loading));
+    }, [deleted,navigation,loading]);
+
 
     const handleDelete = (postId) => {
         Alert.alert(

@@ -121,9 +121,7 @@ const HomeScreen = () => {
 
     const sendEmail = async (to, subject, body, options = {}) => {
         const { cc, bcc } = options;
-
         let url = `mailto:${to}`;
-
         // Create email link query
         const query = qs.stringify({
             subject: subject,
@@ -172,7 +170,6 @@ const HomeScreen = () => {
                     initialValues={{ name: '', email: '', phoneNumber: '', product: '', issue: '', problem: '' }}
                     onSubmit={
                         (values, actions) => {
-                            // alert(JSON.stringify(values));
                             setTimeout(() => {
                                 actions.setSubmitting(false);
                             }, 1000);
@@ -220,13 +217,20 @@ const HomeScreen = () => {
                                 <FormDropDown
                                     items={products}
                                     selectedValue={selectedProduct}
-                                    onValueChange={(prod)=>{formikprops.handleChange("product");setSelectedProduct(prod);}}
+                                    onValueChange={(prod)=>{
+                                        formikprops.setFieldValue('product',prod);
+                                        setSelectedProduct(prod);
+                                    }}
                                 />
                                 <FormDropDown
                                     items={issues}
                                     selectedValue={selectedIssue}
-                                    onValueChange={(issue)=>{formikprops.handleChange("issue");setSelectedIssue(issue);}}
+                                    onValueChange={(issue)=>{
+                                        formikprops.setFieldValue('issue',issue);
+                                        setSelectedIssue(issue);
+                                    }}
                                 />
+
                                 <FormInput
                                     placeholderText="Explain your problem"
                                     iconType={null}
