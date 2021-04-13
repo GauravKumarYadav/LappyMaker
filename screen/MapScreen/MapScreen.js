@@ -62,14 +62,11 @@ const MapScreen = ({ navigation }) => {
         if(dis > 10){
             console.log(dis,'=>');
             setPrevCoords(newLoc);
-            firebase
-                .database()
-                .ref('users/' + user.uid)
-                .push(currentCoords);
+            firebase.database().ref('users/' + user.uid).push(currentCoords);
         }else{
             console.log('==',dis);
         }
-        
+    }   
         // if (dis > 10){
         //     console.log(currentCoords);
         //     setPrevLatLng(currentCoords)
@@ -88,7 +85,6 @@ const MapScreen = ({ navigation }) => {
         //         //     'Your profile has been updated successfully.'
         //         // );
         //     })
-    }
     // const ltry = ()=>{
     //     firebase.database().ref('users/' + user.uid).on('value', function(snapshot){
     //         var newData = []
@@ -107,9 +103,6 @@ const MapScreen = ({ navigation }) => {
         longitudeDelta: initialRegion.longitudeDelta
     });
 
-    // const calcDistance = (newLatLng) => {
-    //     return haversine(prevLatLng, newLatLng) || 0;
-    // };
 
     return (
         <View style={styles.container} >
